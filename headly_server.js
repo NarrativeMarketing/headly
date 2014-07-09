@@ -26,6 +26,7 @@
 
   ConnectHandler.use(function(req, res, next) {
     var detected = _.find(_.keys(userAgentDetectors), function(detector){
+      if ( !req.headers['user-agent'] ) return false;
       return req.headers['user-agent'].indexOf(detector) !== -1 && !!Meteor.headly._options[userAgentDetectors[detector]];
     });
     if (detected) {
